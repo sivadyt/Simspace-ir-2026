@@ -2,6 +2,8 @@
 ### SimSpace LiveFire Exercise — April 2, 2026
 
 > On April 2nd, our team participated in a live incident response exercise on SimSpace — a platform we are building out for cyber training and CCDC lab development. This writeup documents the full investigation conducted in real time using Splunk, covering everything from initial detection through credential theft, lateral movement, persistence, and confirmed email exfiltration.
+---
+<img width="2187" height="2187" alt="image" src="https://github.com/user-attachments/assets/a02f5318-29bf-46ea-952f-7ed77f1f8a4e" />
 
 ---
 
