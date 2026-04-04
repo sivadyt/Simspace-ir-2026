@@ -78,10 +78,7 @@ A workstation was compromised via a custom RAT (`procduwp.exe`) dropped in `C:\U
               │
               ▼
 [10:00 AM] User activity paused — IR initiated
-              │
-              ▼
-[12:46 PM] out.txt opened via Notepad on br-win10-1
-           ⚠️  Possible active attacker access via SSH post-containment
+
 ```
 
 ---
