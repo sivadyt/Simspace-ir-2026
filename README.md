@@ -1,4 +1,29 @@
-# APT28 Incident Response — SimSpace LiveFire Lab
+# SimSpace LiveFire — Incident Response Portfolio
+**Analyst:** Ty | **School:** Metro State University | **Platform:** SimSpace LiveFire
+
+This repository contains incident response write-ups from SimSpace LiveFire exercises conducted as part of cybersecurity training at Metro State University. Each exercise involves a real simulated attack investigated using Splunk, Sysmon, and Windows Event Logs.
+
+---
+
+## IR Exercises
+
+| # | Date | Threat Actor | Scenario | Report |
+|---|------|-------------|----------|--------|
+| 1 | April 2, 2026 | Silk Typhoon | RAT Compromise & Exchange Exfiltration | [View write-up](#exercise-1--silk-typhoon--rat-compromise--exchange-exfiltration) |
+| 2 | April 14, 2026 | APT28 / Fancy Bear | Spearphishing, C2, Data Exfiltration | [View write-up](#exercise-2--apt28--spearphishing-c2-and-data-exfiltration) |
+
+---
+
+## Exercise 1 — Silk Typhoon — RAT Compromise & Exchange Exfiltration
+> April 2, 2026
+>
+> See `iocs.md` and `splunk-queries.md` for full details from the first exercise.
+>
+> ---
+>
+> ## Exercise 2 — APT28 — Spearphishing, C2, and Data Exfiltration
+>
+> # APT28 Incident Response — SimSpace LiveFire Lab
 **Date:** April 14, 2026  
 **Analyst:** Ty  
 **Environment:** SimSpace LiveFire (Metro State University)  
