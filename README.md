@@ -15,15 +15,88 @@ This repository contains incident response write-ups from SimSpace LiveFire exer
 ---
 
 ## Exercise 1 — Silk Typhoon — RAT Compromise & Exchange Exfiltration
-> April 2, 2026
->
-> See `iocs.md` and `splunk-queries.md` for full details from the first exercise.
+**Date:** April 2, 2026  
+**Analyst:** Ty  
+**Environment:** SimSpace LiveFire (Metro State University)  
+**Threat Actor:** Silk Typhoon  
+
+### Overview
+
+On April 2nd, our team participated in a live incident response exercise on SimSpace. This writeup documents the full investigation conducted in real time using Splunk, covering everything from initial detection through credential theft, lateral movement, persistence, and confirmed email exfiltration.
+
+### Attack Summary
+
+| Field | Value |
+|-------|-------|
+| Exercise | SimSpace LiveFire — IR Scenario |
+| Date | April 2, 2026 |
+| Patient Zero | 172.16.4.101 — Charley Fritz workstation |
+| Hosts Compromised | 3 confirmed |
+| Severity | Critical |
+
+### Attack Overview
+
+A workstation was compromised via a custom RAT (`procdump.exe`) dropped in `C:\Users\Public\`. The malware established C2 communications, downloaded Mimikatz in memory, sprayed passwords to pivot to a second machine, installed SSH backdoors, and exfiltrated a user's Exchange mailbox — all within 15 minutes of the user logging in.
+
+### Attack Chain
+
+```
+[8:00 AM] Charley Fritz logs in → workstation 172.16.4.101
+         |
+[8:55 AM] procdump.exe executes from C:\Users\Public\
+         |-- Beacons to estonine.com every ~20s (port 80)
+         |-- Registers: GET /register/br-win10-1/windows
+         └-- Receives ~10KB command payloads each cycle
+         |
+[8:50 AM] Password spray → \\dev-win10-2
+         |-- 100 random passwords attempted via net use
+         |-- Fallback: hardcoded Simspace1!Simspace1!
+         └-- SUCCESS at 8:59:29 AM
+         |
+[9:00 AM] Mimikatz → LSASS dump
+         |-- sekurlsa::logonpasswords
+         └-- NTLM hashes extracted
+         |
+[9:05 AM] Lateral movement → dev-win10-2 (172.16.5.102)
+         |-- PsExec / net use with stolen creds
+         └-- procdump.exe dropped in C:\Users\Public\
+         |
+[9:10 AM] SSH backdoor installed on dev-win10-2
+         |-- OpenSSH for Windows installed silently
+         └-- Listening on port 22
+         |
+[9:15 AM] Exchange mailbox exfiltration
+         └-- charley.fritz@site.lan mailbox exported via PowerShell
+```
+
+### Key IOCs (Exercise 1)
+
+| Type | Value |
+|------|-------|
+| Malicious binary | `C:\Users\Public\procdump.exe` |
+| C2 server | `estonine.com` (port 80) |
+| Patient zero | 172.16.4.101 (Charley Fritz) |
+| Lateral movement target | 172.16.5.102 (dev-win10-2) |
+| Hardcoded creds | `Simspace1!Simspace1!` |
+| Exfil target | `charley.fritz@site.lan` Exchange mailbox |
+
+### MITRE ATT&CK (Exercise 1)
+
+| ID | Tactic | Technique |
+|----|--------|-----------|
+| T1059.001 | Execution | PowerShell |
+| T1078 | Privilege Escalation | Valid Accounts |
+| T1110.001 | Credential Access | Password Spraying |
+| T1003.001 | Credential Access | LSASS Memory Dump |
+| T1021.002 | Lateral Movement | SMB/Windows Admin Shares |
+| T1098 | Persistence | SSH Backdoor |
+| T1114.002 | Exfiltration | Remote Email Collection |
+
+> Full IOCs and Splunk queries in `iocs.md` and `splunk-queries.md`
 >
 > ---
 >
-> ## Exercise 2 — APT28 — Spearphishing, C2, and Data Exfiltration
->
-> # APT28 Incident Response — SimSpace LiveFire Lab
+> > # APT28 Incident Response — SimSpace LiveFire Lab
 **Date:** April 14, 2026  
 **Analyst:** Ty  
 **Environment:** SimSpace LiveFire (Metro State University)  
