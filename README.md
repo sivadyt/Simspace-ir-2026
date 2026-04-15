@@ -148,31 +148,6 @@ index=* EventCode=1102 OR EventCode=104
 
 ---
 
-## Screenshots
-
-### Network Connection — photos.exe to C2
-![photos.exe network connect](images/01_photos_exe_network_connect.png)
-
-### T1036 Masquerading Alert
-![masquerading alert](images/02_masquerading_alert.png)
-
-### T1043 Commonly Used Port Alert
-![commonly used port](images/03_commonly_used_port.png)
-
-### PowerShell Dropper — File Creation Event
-![powershell dropper](images/04_powershell_dropper.png)
-
-### Credential Use — Hardcoded Admin Password
-![credential use](images/05_credential_use.png)
-
-### Full Command Map from photos.exe
-![command map](images/06_command_map.png)
-
-### SimSpace Attack Map
-![attack map](images/07_attack_map.png)
-
----
-
 ## Report
 
 Full IR report available in the [report/](report/) folder.
